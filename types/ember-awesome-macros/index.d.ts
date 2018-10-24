@@ -6,11 +6,13 @@
 import Ember from 'ember';
 import PromiseProxyMixin from 'ember__object/promise-proxy-mixin';
 
-export function add(): number;
-export function and(): any;
-export function bool(): boolean;
-export function collect(): Array<any>;
-export function computed(): Ember.ComputedProperty<any>;
+type macroArgument = string | Ember.ComputedProperty<any>;
+
+export function add(arg1: macroArgument, arg2: macroArgument, ...remainingArgs: Array<macroArgument>): number;
+export function and(arg1: macroArgument, arg2: macroArgument, ...remainingArgs: Array<macroArgument>): any;
+export function bool(arg: macroArgument): boolean;
+export function collect(arg1: macroArgument, ...remainingArgs: Array<macroArgument>): Array<any>;
+export function computed(string, { get:  }): Ember.ComputedProperty<any>;
 export function conditional(): any;
 export function defaultTrue(): any;
 export function difference(): number;
