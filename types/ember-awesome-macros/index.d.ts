@@ -6,68 +6,77 @@
 import Ember from 'ember';
 import PromiseProxyMixin from 'ember__object/promise-proxy-mixin';
 
-type macroArgument = string | Ember.ComputedProperty<any>;
+type ComputedProperty = Ember.ComputedProperty<any>
+type MacroArgument = string | ComputedProperty;
+type GroupByResult = Array<{
+    key: string,
+    value: any,
+    items: any[]
+}>
 
-export function add(arg1: macroArgument, arg2: macroArgument, ...remainingArgs: Array<macroArgument>): number;
-export function and(arg1: macroArgument, arg2: macroArgument, ...remainingArgs: Array<macroArgument>): any;
-export function bool(arg: macroArgument): boolean;
-export function collect(arg1: macroArgument, ...remainingArgs: Array<macroArgument>): Array<any>;
-export function computed(string, { get:  }): Ember.ComputedProperty<any>;
-export function conditional(): any;
-export function defaultTrue(): any;
-export function difference(): number;
-export function divide(): number;
-export function eq(): boolean;
-export function equal(): boolean;
-export function getBy(): any;
-export function gt(): boolean;
-export function gte(): boolean;
-export function hash(): object;
-export function instanceOf(): boolean;
-export function isHtmlSafe(): boolean;
-export function isEmpty(): boolean;
-export function notEmpty(): boolean;
-export function lt(): boolean;
-export function lte(): boolean;
-export function math(): Math;
-export function mod(): number;
-export function multiply(): number;
-export function nand(): boolean;
-export function neq(): boolean;
-export function nor(): boolean;
-export function not(): boolean;
-export function notEqual(): boolean;
-export function number(): Number;
-export function or(): any;
-export function parseFloat(): number;
-export function parseInt(): number;
-export function product(): number;
-export function quotient(): number;
-export function raw(): Ember.ComputedProperty<any>;
-export function subtract(): number;
-export function sum(): number;
-export function tag(): string;
-export function toStr(): string;
-export function toString(): string;
-export function typeOf(): string;
-export function unless(): any;
-export function writable(): Ember.ComputedProperty<any>;
-export function xnor(): boolean;
-export function xor(): boolean;
+export const math: {
+    string: (...args: MacroArgument[]) => ComputedProperty
+}
+
+export function add(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function and(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): any;
+export function bool(arg: MacroArgument): boolean;
+export function collect(arg1: MacroArgument, ...remainingArgs: Array<MacroArgument>): Array<any>;
+export function computed(key: string, methods: { get: (value: any) => any, set: (newVale: any, value: any) => any }): ComputedProperty;
+export function conditional(condition: MacroArgument, trueValue: any, falseValue: any): any;
+export function defaultTrue(arg: MacroArgument): any;
+export function difference(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function divide(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function eq(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
+export function equal(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
+export function getBy(arg1: MacroArgument, arg2: MacroArgument): any;
+export function gt(arg1: MacroArgument, arg2: MacroArgument): boolean;
+export function gte(arg1: MacroArgument, arg2: MacroArgument): boolean;
+export function hash(arg: { string: MacroArgument }): object;
+export function instanceOf(arg: MacroArgument, type: any): boolean;
+export function isHtmlSafe(arg: MacroArgument): boolean;
+export function isEmpty(arg: MacroArgument): boolean;
+export function notEmpty(arg: MacroArgument): boolean;
+export function lt(arg1: MacroArgument, arg2: MacroArgument): boolean;
+export function lte(arg1: MacroArgument, arg2: MacroArgument): boolean;
+export function mod(arg1: MacroArgument, arg2: MacroArgument): number;
+export function multiply(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function nand(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
+export function neq(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
+export function nor(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
+export function not(arg: MacroArgument): boolean;
+export function notEqual(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
+export function number(arg: MacroArgument): number;
+export function or(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): any;
+export function parseFloat(arg: MacroArgument): number;
+export function parseInt(arg: MacroArgument): number;
+export function product(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function quotient(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function raw(value: string): ComputedProperty;
+export function subtract(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function sum(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): number;
+export function tag(string: ReadonlyArray<string>, ...args: string[]): string;
+export function toStr(arg: MacroArgument): string;
+export function toString(arg: MacroArgument): string;
+export function typeOf(arg: MacroArgument): string;
+export function unless(condition: MacroArgument, falseValue: any, trueValue: any): any;
+export function writable(macro: ComputedProperty, setter: { set: (newVale: any, value: any) => any }): ComputedProperty;
+export function xnor(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
+export function xor(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): boolean;
 
 export namespace array {
-    export function any(): boolean;
-    export function compact(): Array<any>;
-    export function concat(): Array<any>;
-    export function every(): boolean;
-    export function filterBy(): Array<any>;
-    export function filter(): Array<any>;
-    export function findBy(): any;
-    export function find(): any;
-    export function first(): any;
-    export function groupBy(): Array<any>;
-    export function includes(): boolean;
-    export function indexOf(): number;
+    export function any(arg: MacroArgument, predicate: (value: any) => boolean): boolean;
+    export function compact(arg: MacroArgument): Array<any>;
+    export function concat(arg1: MacroArgument, arg2: MacroArgument, ...remainingArgs: Array<MacroArgument>): Array<any>;
+    export function every(arg: MacroArgument, predicate: (value: any) => boolean): boolean;
+    export function filterBy(target: string, key: string, comparisonValue: any): Array<any>;
+    export function filter(target: MacroArgument, comparator: (value: any) => boolean): Array<any>;
+    export function findBy(target: string, key: string, comparisonValue: any): any;
+    export function find(target: MacroArgument, comparator: (value: any) => boolean): any;
+    export function first(array: MacroArgument): any;
+    export function groupBy(array: MacroArgument, key: string, comparator?: (value: any) => boolean): GroupByResult;
+    export function includes(array: MacroArgument, searchValue: MacroArgument): boolean;
+    export function indexOf(array: MacroArgument, searchValue: any, startIndex? :number): number;
     export function invoke(): Array<any>;
     export function isAny(): boolean;
     export function isEvery(): boolean;
